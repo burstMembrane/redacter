@@ -1,0 +1,16 @@
+.App {
+    margin: 2rem;
+    height: 100vh;
+}
+
+#headimg {
+    -webkit-transition: opacity 2.0s ease-in;
+    -moz-transition: opacity 2.0s ease-in;
+    -o-transition: opacity 2.0s ease-in;
+    transition: opacity 2.0s ease-in;
+    opacity: 1;
+}
+
+input {
+    background-color: black !important;
+}
