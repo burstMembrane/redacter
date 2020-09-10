@@ -1,4 +1,11 @@
 import axios from 'axios';
+
+import dotenv from 'dotenv';
+import dotenvExpand from 'dotenv-expand';
+
+const myenv = dotenv.config()
+dotenvExpand(myenv)
+
 const port = process.env.REACT_APP_HEROKU_PORT
 
 console.log(`Running on port: ${port}`)
