@@ -1,7 +1,9 @@
 import axios from 'axios';
+const port = process.env.REACT_APP_HEROKU_PORT
 
+console.log(`Running on port: ${port}`)
 const replaceNamesAPI = axios.create({
-    baseURL: 'http://localhost:5000/'
+    baseURL: `http://localhost:${port}/`
 });
 
 const testReq = async() => {
