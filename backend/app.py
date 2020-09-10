@@ -38,4 +38,5 @@ def fakename():
 
 if __name__ == "__main__":
 
-    app.run(debug=False, port=8888)
+    app.run(debug=False, port=(os.getenv('PORT')
+                               if os.getenv('PORT') else 8888), )
