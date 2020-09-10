@@ -6,12 +6,10 @@ import dotenvExpand from 'dotenv-expand';
 const myenv = dotenv.config()
 dotenvExpand(myenv)
 
-const port = process.env.REACT_APP_HEROKU_PORT
+const port = 5000
 
 console.log(`Running on port: ${port}`)
-const replaceNamesAPI = axios.create({
-    baseURL: `http://localhost:${port}/`
-});
+const replaceNamesAPI = axios.create();
 
 const testReq = async() => {
     const res = await replaceNamesAPI.post('replace', {
