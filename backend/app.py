@@ -4,6 +4,9 @@ import json
 from replace_names import replace_names, replace_names_nltk, getFakeFirstName, getFakeLastName
 from dotenv import load_dotenv
 import os
+import gc
+
+gc.set_debug(gc.DEBUG_LEAK)
 app = Flask(__name__, static_folder='../redacter/build/', static_url_path='/')
 
 load_dotenv()

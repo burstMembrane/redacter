@@ -84,7 +84,6 @@ def replace_names(text):
     names = []
     fakenames = []
     lines = text.splitlines()
-    print(lines)
     for line in tqdm(lines):
         tagline = st.tag(line.split())
         for i, tag in enumerate(tagline):
@@ -106,5 +105,4 @@ def replace_names(text):
         newline = " ".join(untag(tagline))
         newlines.append(newline)
     formatted = "\n".join(newlines)
-    print(formatted)
     return (formatted, names)
