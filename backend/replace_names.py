@@ -105,4 +105,6 @@ def replace_names(text):
         newline = " ".join(untag(tagline))
         newlines.append(newline)
     formatted = "\n".join(newlines)
+    newlines.clear()
+    fakenames.clear()
     return (formatted, names)
