@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Select, Form, TextArea, Button, Loader, Dimmer } from 'semantic-ui-react';
+import { Select, Form, TextArea, Button, Loader, Dimmer, Message } from 'semantic-ui-react';
 import replaceNamesAPI from '../utils/utils';
 
 const taggerOpts = [
@@ -14,7 +14,9 @@ export default class TextInput extends Component {
 		loading: false,
 		numlines: 0,
 		linesindex: 0,
-		method: 'nltk'
+		method: 'nltk',
+		largetext: false,
+		err: ''
 	};
 
 	handleText = (e) => {
@@ -37,33 +39,48 @@ export default class TextInput extends Component {
 		});
 
 		// if it is a short text, send in one
-		if (lines.length < 5) {
-			const res = await replaceNamesAPI.post('replace', {
-				text: text,
-				method: this.state.method
-			});
-			const { names, replaced } = res.data;
-			this.setState({
-				names,
-				replaced
-			});
-			this.props.handleText(replaced);
-			this.setState({
-				loading: false
-			});
+		if (lines.length < 20) {
+			try {
+				const res = await replaceNamesAPI.post('replace', {
+					text: text,
+					method: this.state.method
+				});
+				const { names, replaced } = res.data;
+				this.setState({
+					names,
+					replaced
+				});
+				this.props.handleText(replaced);
+				this.setState({
+					loading: false
+				});
+			} catch (error) {
+				console.log(error);
+				this.setState({ err: String(error) + ". Couldn't connect to server", loading: false });
+			}
 		} else {
+			this.setState({ largetext: true });
 			const res = await Promise.all(
 				lines.map(async (line, i) => {
-					const replaced = await replaceNamesAPI.post('replace', {
-						text: line,
-						method: this.state.method
-					});
-					this.setState({
-						linesindex: i
-					});
-					return replaced;
+					try {
+						const replaced = await replaceNamesAPI.post('replace', {
+							text: line,
+							method: this.state.method
+						});
+						this.setState({
+							linesindex: i
+						});
+						return replaced;
+					} catch (error) {
+						console.log(error);
+						this.setState({ err: String(error) + "\n Couldn't connect to server", loading: false });
+					}
 				})
 			);
+			if (lines.length > 50) {
+				//force NLTK tagger, stanford is too slow.
+				this.setState({ method: 'nltk' });
+			}
 
 			let replaced = res.map((res) => {
 				return res.data.replaced;
@@ -82,7 +99,8 @@ export default class TextInput extends Component {
 			});
 			this.props.handleText(replaced);
 			this.setState({
-				loading: false
+				loading: false,
+				largetext: false
 			});
 		}
 	};
@@ -96,15 +114,18 @@ export default class TextInput extends Component {
 		return (
 			<div>
 				<Form>
-					<Dimmer active={this.state.loading}>
-						<Loader active={this.state.loading}>
+					<Dimmer inverted active={this.state.loading}>
+						<Loader size='large' active={this.state.loading}>
 							{' '}
-							{this.state.loading ? (
+							{this.state.loading && this.state.largetext ? (
 								`Loading line ${this.state.linesindex} of ${this.state.numlines}`
-							) : null}
+							) : (
+								`Processing ${this.state.numlines} lines`
+							)}
 						</Loader>
 					</Dimmer>
 					<Form.Field
+						required
 						rows={10}
 						style={{
 							minHeight: '300px',
@@ -117,11 +138,16 @@ export default class TextInput extends Component {
 						onChange={this.handleText}
 						placeholder='Paste input text here'
 					/>
-					<Select placeholder='Select algorithm' options={taggerOpts} onChange={this.handleSelect} />
-					<Form.Field basic control={Button} loading={this.state.loading} onClick={this.handleSubmit}>
-						{' '}
-						Replace Names {' '}
-					</Form.Field>{' '}
+					<Form.Group fluid inline>
+						<Select placeholder='Select algorithm' options={taggerOpts} onChange={this.handleSelect} />
+						<Form.Field basic control={Button} loading={this.state.loading} onClick={this.handleSubmit}>
+							{' '}
+							Replace Names {' '}
+						</Form.Field>{' '}
+					</Form.Group>
+					<Message color='red' hidden={!this.state.err}>
+						{this.state.err}{' '}
+					</Message>
 				</Form>{' '}
 			</div>
 		);

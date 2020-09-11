@@ -15,4 +15,8 @@
     min-height: 50vh !important;
 }
 
-
+@media screen and (max-width: 900px) {
+    .ui.form textarea {
+        min-height: 25vh !important;
+    }
+}
