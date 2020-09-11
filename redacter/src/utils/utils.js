@@ -6,7 +6,7 @@ import dotenvExpand from 'dotenv-expand';
 const myenv = dotenv.config()
 dotenvExpand(myenv)
 
-const port = 5000
+const port = 8000
 
 console.log(`Running on port: ${port}`)
 const replaceNamesAPI = axios.create();

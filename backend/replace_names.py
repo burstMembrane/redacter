@@ -1,9 +1,19 @@
 from nltk.tag.stanford import StanfordNERTagger
 from nltk.tag.util import untag
+from nltk.tokenize.treebank import TreebankWordDetokenizer
 from tqdm import tqdm
+import nltk
 from faker import Faker
 import re
 fake = Faker(['en_AU'])
+
+d = TreebankWordDetokenizer()
+
+
+def detokenize(sentence):
+    result = ' '.join(sentence).replace(
+        ' , ', ',').replace(' .', '.').replace(' !', '!')
+    return result.replace(' ?', '?').replace(' : ', ': ').replace(' \'', '\'')
 
 
 def getFakeFirstName():
@@ -31,9 +41,42 @@ def getFakeLastName():
 file = './test.txt'
 tagged = []
 
+testText = "Liam Jordan is a guy who loves to dance around and John Rambo loves to kill him."
 
 st = StanfordNERTagger(
-    'stanford-ner/english.all.3class.distsim.crf.ser.gz', 'stanford-ner/stanford-ner.jar')
+    'stanford-ner/english.all.3class.distsim.crf.ser.gz', 'stanford-ner/stanford-ner.jar', encoding='utf-8')
+
+
+def replace_names_nltk(text):
+    newlines = []
+    names = []
+    fakenames = []
+    lines = nltk.word_tokenize(text, preserve_line=True)
+    tagline = nltk.pos_tag(lines)
+    namedEnt = nltk.ne_chunk(tagline, binary=False)
+    tree = namedEnt.pos()
+
+    for i, tag in enumerate(tree):
+        if "PERSON" in tag:
+            fake = getFakeFirstName()
+            newtag = ["", ""]
+            names.append(tag)
+            fakenames.append(fake)
+            # TODO: Check if name is same as last stored, if so, use same fake name.
+            newtag = ["", ""]
+            if tag[0] in names:
+                newtag[0] = fakenames[names.index(word)]
+            else:
+                newtag[0] = fake
+            newtag[1] = "0"
+            newtag = tuple(newtag)
+            tagline[i] = newtag
+    newline = d.detokenize(untag(tagline))
+    # remove whitespace around single quotes with regex
+    subbed = re.sub(r'( ’ )', "'", newline)
+    newlines.append(subbed)
+    formatted = "\n".join(newlines)
+    return (formatted, names)
 
 
 def replace_names(text):
@@ -41,11 +84,10 @@ def replace_names(text):
     names = []
     fakenames = []
     lines = text.splitlines()
+    print(lines)
     for line in tqdm(lines):
         tagline = st.tag(line.split())
-
         for i, tag in enumerate(tagline):
-
             if tag[1] == "PERSON":
                 fake = getFakeFirstName()
                 word, classification = tag
@@ -58,7 +100,6 @@ def replace_names(text):
                     print(newtag[0])
                 else:
                     newtag[0] = fakenames[i]
-
                 newtag[1] = classification
                 newtag = tuple(newtag)
                 tagline[i] = newtag
