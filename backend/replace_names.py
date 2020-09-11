@@ -9,6 +9,8 @@ fake = Faker(['en_AU'])
 
 d = TreebankWordDetokenizer()
 
+# Turn array into sentence
+
 
 def detokenize(sentence):
     result = ' '.join(sentence).replace(
@@ -41,7 +43,6 @@ def getFakeLastName():
 file = './test.txt'
 tagged = []
 
-testText = "Liam Jordan is a guy who loves to dance around and John Rambo loves to kill him."
 
 st = StanfordNERTagger(
     'stanford-ner/english.all.3class.distsim.crf.ser.gz', 'stanford-ner/stanford-ner.jar', encoding='utf-8')
@@ -65,7 +66,7 @@ def replace_names_nltk(text):
             # TODO: Check if name is same as last stored, if so, use same fake name.
             newtag = ["", ""]
             if tag[0] in names:
-                newtag[0] = fakenames[names.index(word)]
+                newtag[0] = fakenames[names.index(tag[0])]
             else:
                 newtag[0] = fake
             newtag[1] = "0"

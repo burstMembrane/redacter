@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 
 import { Container, Grid, Divider, Header, Image, Icon } from 'semantic-ui-react';
@@ -16,43 +16,41 @@ function App() {
 				<Grid centered stackable>
 					<Grid.Row centered>
 						<FadeIn>
-							<Image id='headimg' size='huge' src={redacterlogo} />{' '}
+							<Image id='headimg' size='huge' src={redacterlogo} />
 							<Header> Anonymize your text. </Header> <Divider />
-						</FadeIn>{' '}
+						</FadeIn>
 					</Grid.Row>
 					<Grid.Row>
 						<Grid.Column width={8}>
-							<Header textAlign='center'> Input </Header>{' '}
-							<TextInput handleText={(text) => handleText(text)} />{' '}
-						</Grid.Column>{' '}
+							<Header textAlign='center'> Input </Header>
+							<TextInput handleText={(text) => handleText(text)} />
+						</Grid.Column>
 						<Divider vertical />
 						<Grid.Column width={8}>
-							<Header textAlign='center'> Output </Header> <DisplayOutput text={text} />{' '}
-						</Grid.Column>{' '}
-					</Grid.Row>{' '}
+							<Header textAlign='center'> Output </Header> <DisplayOutput text={text} />
+						</Grid.Column>
+					</Grid.Row>
 					<FadeIn>
 						<Divider hidden section />
 						<Grid.Row>
 							<p>
-								{' '}
-								Built in <Icon name='react' /> with a <Icon name='python' /> backend by {' '}
+								Built in <Icon name='react' /> with a <Icon name='python' /> backend by
 								<a href='http://liampower.dev' target='_blank' rel='noopener noreferrer'>
-									{' '}
 									Liam Power.
-								</a>{' '}
+								</a>
 								Uses the <a href='https://nlp.stanford.edu/software/CRF-NER.shtml'>Stanford NER</a> and
-								NLTK named entity taggers. View code at {' '}
+								NLTK named entity taggers. View code at
 								<a
 									href='https://github.com/burstMembrane/redacter'
 									target='_blank'
 									rel='noopener noreferrer'>
-									<Icon name='github' /> {' '}
+									<Icon name='github' />
 								</a>
 							</p>
 						</Grid.Row>
 					</FadeIn>
-				</Grid>{' '}
-			</Container>{' '}
+				</Grid>
+			</Container>
 		</div>
 	);
 }

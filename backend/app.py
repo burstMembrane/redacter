@@ -6,9 +6,13 @@ from dotenv import load_dotenv
 import os
 import gc
 
+# check to see if there is memory leaks
 gc.set_debug(gc.DEBUG_LEAK)
+
+# Instantiate app
 app = Flask(__name__, static_folder='../redacter/build/', static_url_path='/')
 
+# Load environment variables for Heroku
 load_dotenv()
 
 
@@ -22,19 +26,23 @@ def replace_input():
 
     content = request.json
     method = content["method"]
-
     text = content["text"]
+
+    # Check which method to use
     if method == "stanford":
         replaced, names = replace_names(text)
     else:
         replaced, names = replace_names_nltk(text)
 
+    # Build response
     response = {
         "names": names,
         "replaced": replaced
     }
     return Response(json.dumps(response),  mimetype='application/json')
 
+
+#  echo function for server testing
 
 @app.route("/echo", methods=['GET', 'POST'])
 def echo():
@@ -46,6 +54,7 @@ def echo():
     return Response(json.dumps(response), mimetype='application/json')
 
 
+# Get fake name
 @app.route("/getfakename")
 def fakename():
     fakename = getFakeFirstName() + " " + getFakeLastName()
@@ -57,5 +66,6 @@ def fakename():
 
 if __name__ == "__main__":
 
+    # Run app
     app.run(debug=False, port=(os.getenv('PORT')
                                if os.getenv('PORT') else 5000), )
