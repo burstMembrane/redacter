@@ -146,7 +146,7 @@ export default class TextInput extends Component {
             onChange={this.handleText}
             placeholder="Paste input text here"
           />
-          <Form.Group widths="equal">
+          <Form.Group>
             <Select
               placeholder="Select algorithm"
               options={taggerOpts}
