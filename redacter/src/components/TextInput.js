@@ -11,7 +11,7 @@ const taggerOpts = [
   {
     key: 'nltk',
     value: 'nltk',
-    text: 'NLTK POS tagger (Faster, less accurate)'
+    text: 'NLTK NE tagger (Faster, less accurate)'
   }
 ]
 export default class TextInput extends Component {
@@ -146,7 +146,7 @@ export default class TextInput extends Component {
             onChange={this.handleText}
             placeholder="Paste input text here"
           />
-          <Form.Group inline>
+          <Form.Group widths="equal">
             <Select
               placeholder="Select algorithm"
               options={taggerOpts}

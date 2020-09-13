@@ -17,17 +17,19 @@ function App() {
           <Grid.Row centered>
             <FadeIn>
               <Image id="headimg" size="huge" src={redacterlogo} />
-              <Header> Anonymize your text. </Header> <Divider />
+              <Header> Turn real names into fakes. Anonymize your text. </Header>
             </FadeIn>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={8}>
               <Header textAlign="center"> Input </Header>
+              <Divider></Divider>
               <TextInput handleText={(text) => handleText(text)} />
             </Grid.Column>
-            <Divider vertical />
+            <Divider vertical section />
             <Grid.Column width={8}>
               <Header textAlign="center"> Output </Header>
+              <Divider></Divider>
               <DisplayOutput text={text} />
             </Grid.Column>
           </Grid.Row>
@@ -35,13 +37,13 @@ function App() {
             <Divider hidden section />
             <Grid.Row>
               <p>
-                Built in <Icon name="react" /> with a <Icon name="python" /> backend by
+                Built in <Icon name="react" /> with a <Icon name="python" /> backend by &nbsp;
                 <a href="http://liampower.dev" target="_blank" rel="noopener noreferrer">
-                  Liam Power.
+                  Liam Power. &nbsp;
                 </a>
-                Uses the
-                <a href="https://nlp.stanford.edu/software/CRF-NER.shtml">Stanford NER</a>
-                and NLTK named entity taggers. View code at
+                Uses the &nbsp;
+                <a href="https://nlp.stanford.edu/software/CRF-NER.shtml">Stanford NER &nbsp;</a>
+                and NLTK named entity taggers. View code on &nbsp;
                 <a
                   href="https://github.com/burstMembrane/redacter"
                   target="_blank"
