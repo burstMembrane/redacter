@@ -146,7 +146,7 @@ export default class TextInput extends Component {
             onChange={this.handleText}
             placeholder="Paste input text here"
           />
-          <Form.Group>
+          <Form.Group unstackable widths="even">
             <Select
               placeholder="Select algorithm"
               options={taggerOpts}
@@ -157,7 +157,7 @@ export default class TextInput extends Component {
               control={Button}
               loading={this.state.loading}
               onClick={this.handleSubmit}>
-              Replace Names
+              Find & replace
             </Form.Field>
           </Form.Group>
           <Message color="red" hidden={!this.state.err}>
