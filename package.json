@@ -3,19 +3,19 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1",
-        "react-scripts": "3.4.1",
         "axios": "^0.20.0",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "react-fade-in": "^1.1.0",
         "react-scripts": "3.4.3",
-        "semantic-ui-css": "^2.4.1",
         "semantic-ui-react": "^1.2.1"
     },
     "scripts": {
-        "start": "cd backend && gunicorn app:app",
+
+        "start": "craco start",
+        "build": "craco build",
+        "test": "craco test",
+        "eject": "craco eject",
         "heroku-postbuild": "export REACT_APP_HEROKU_PORT=$PORT && cd redacter && npm run build"
     },
     "eslintConfig": {
@@ -34,4 +34,5 @@
             "last 1 safari version"
         ]
     }
+
 }
