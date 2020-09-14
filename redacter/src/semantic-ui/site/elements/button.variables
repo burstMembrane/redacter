@@ -1,0 +1,39 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+/*-------------------
+    Variations
+--------------------*/
+
+/* Colors */
+@coloredBackgroundImage: none;
+@coloredBoxShadow: none;
+@hoverBackgroundColor: #3d3d3d;
+
+/* Colored */
+@brownTextColor: @invertedTextColor;
+@brownTextShadow: @invertedTextShadow;
+@redTextColor: @invertedTextColor;
+@redTextShadow: @invertedTextShadow;
+@orangeTextColor: @invertedTextColor;
+@orangeTextShadow: @invertedTextShadow;
+@greenTextColor: @invertedTextColor;
+@greenTextShadow: @invertedTextShadow;
+@blueTextColor: @invertedTextColor;
+@blueTextShadow: @invertedTextShadow;
+@violetTextColor: @invertedTextColor;
+@violetTextShadow: @invertedTextShadow;
+@purpleTextColor: @invertedTextColor;
+@purpleTextShadow: @invertedTextShadow;
+@pinkTextColor: @invertedTextColor;
+@pinkTextShadow: @invertedTextShadow;
+@blackTextColor: @invertedTextColor;
+@blackTextShadow: @invertedTextShadow;
+@oliveTextColor: @invertedTextColor;
+@oliveTextShadow: @invertedTextShadow;
+@yellowTextColor: @invertedTextColor;
+@yellowTextShadow: @invertedTextShadow;
+@tealTextColor: @invertedTextColor;
+@tealTextShadow: @invertedTextShadow;
+@greyTextColor: @invertedTextColor;
+@greyTextShadow: @invertedTextShadow;

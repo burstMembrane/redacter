@@ -1,0 +1,39 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+@activeBackgroundColor: @hoverBackgroundColor;
+
+.ui.button {
+    box-shadow: 0px 0px 0px @invertedBorderSize @darkWhite inset;
+    vertical-align: @verticalAlign;
+    background: @pageBackground ;
+    color: rgb(255, 255, 255);
+
+
+}
+
+.ui.button:hover {
+    background-color: @hoverBackgroundColor;
+    background-image: @hoverBackgroundImage;
+    box-shadow: @hoverBoxShadow;
+    color: @lightGrey;
+}
+
+
+
+.ui.basic.button {
+    background: @disabledTextColor  !important;
+    color: @white  !important;
+    font-weight: @basicFontWeight;
+    border-radius: @basicBorderRadius;
+    text-transform: @basicTextTransform;
+    text-shadow: none !important;
+    box-shadow: @basicBoxShadow;
+}
+
+.ui.basic.button:hover {
+    background: transparent !important;
+    color: @basicHoverTextColor  !important;
+    box-shadow: @basicHoverBoxShadow;
+}

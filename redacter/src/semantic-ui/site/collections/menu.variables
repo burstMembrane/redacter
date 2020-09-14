@@ -1,0 +1,17 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+
+/* Menu */
+@verticalMargin: @medium;
+@horizontalMargin: 0em;
+@margin: @verticalMargin @horizontalMargin;
+@background: @pageBackground;
+@fontFamily: @pageBackground;
+@itemBackground: @pageBackground;
+@fontWeight: @normal;
+@borderWidth: 1px;
+@border: @borderWidth solid @borderColor;
+@boxShadow: @subtleShadow;
+@borderRadius: @defaultBorderRadius;
+@minHeight: (@itemVerticalPadding * 2) + 1em;
