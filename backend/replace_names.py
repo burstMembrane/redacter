@@ -29,6 +29,10 @@ def getFakeFirstName():
     return first
 
 
+def replace_with_char(string, char="_"):
+    return re.sub("([a-z])", char, string, flags=re.IGNORECASE)
+
+
 def getFakeLastName():
     name = fake.name()
     split = name.split(" ")
@@ -48,7 +52,7 @@ st = StanfordNERTagger(
     'stanford-ner/english.all.3class.distsim.crf.ser.gz', 'stanford-ner/stanford-ner.jar', encoding='utf-8')
 
 
-def replace_names_nltk(text):
+def replace_names_nltk(text, method="fake", replacechar="_"):
     newlines = []
     names = []
     fakenames = []
@@ -56,19 +60,20 @@ def replace_names_nltk(text):
     tagline = nltk.pos_tag(lines)
     namedEnt = nltk.ne_chunk(tagline, binary=False)
     tree = namedEnt.pos()
-
     for i, tag in enumerate(tree):
         if "PERSON" in tag:
-            fake = getFakeFirstName()
+            print(tag[0][0])
             newtag = ["", ""]
-            names.append(tag)
-            fakenames.append(fake)
-            # TODO: Check if name is same as last stored, if so, use same fake name.
-            newtag = ["", ""]
-            if tag[0] in names:
-                newtag[0] = fakenames[names.index(tag[0])]
-            else:
-                newtag[0] = fake
+            if method == "fake":
+                fake = getFakeFirstName()
+                names.append(tag)
+                fakenames.append(fake)
+                if tag[0] in names:
+                    newtag[0] = fakenames[names.index(tag[0])]
+                else:
+                    newtag[0] = fake
+            if method == "replace":
+                newtag[0] = replace_with_char(tag[0][0], replacechar)
             newtag[1] = "0"
             newtag = tuple(newtag)
             tagline[i] = newtag
@@ -80,7 +85,7 @@ def replace_names_nltk(text):
     return (formatted, names)
 
 
-def replace_names(text):
+def replace_names(text, method="fake", replacechar="_"):
     newlines = []
     names = []
     fakenames = []
@@ -88,18 +93,22 @@ def replace_names(text):
     for line in tqdm(lines):
         tagline = st.tag(line.split())
         for i, tag in enumerate(tagline):
+
             if tag[1] == "PERSON":
-                fake = getFakeFirstName()
-                word, classification = tag
-                names.append(word)
-                fakenames.append(fake)
-                # TODO: Check if name is same as last stored, if so, use same fake name.
                 newtag = ["", ""]
-                if tag[0] in names:
-                    newtag[0] = fakenames[names.index(word)]
-                    print(newtag[0])
-                else:
-                    newtag[0] = fakenames[i]
+
+                word, classification = tag
+                if method == "replace":
+                    newtag[0] = replace_with_char(word, replacechar)
+                if method == "fake":
+                    fake = getFakeFirstName()
+                    fakenames.append(fake)
+                    names.append(word)
+                    if tag[0] in names:
+                        newtag[0] = fakenames[names.index(word)]
+                        print(newtag[0])
+                    else:
+                        newtag[0] = fakenames[i]
                 newtag[1] = classification
                 newtag = tuple(newtag)
                 tagline[i] = newtag
@@ -109,3 +118,8 @@ def replace_names(text):
     newlines.clear()
     fakenames.clear()
     return (formatted, names)
+
+
+# teststr = "John Doe walked down the street"
+# replaced = replace_names_nltk(teststr, "replace")
+# print("{0}.\n{1}".format(teststr, replaced[0]))

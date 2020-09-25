@@ -7,7 +7,7 @@ import os
 import gc
 
 # check to see if there is memory leaks
-gc.set_debug(gc.DEBUG_LEAK)
+# gc.set_debug(gc.DEBUG_LEAK)
 
 # Instantiate app
 app = Flask(__name__, static_folder='../redacter/build/', static_url_path='/')
@@ -26,13 +26,15 @@ def replace_input():
 
     content = request.json
     method = content["method"]
+    replacemethod = content["replacemethod"]
+    replacechar = content["replacechar"]
     text = content["text"]
 
     # Check which method to use
     if method == "stanford":
-        replaced, names = replace_names(text)
+        replaced, names = replace_names(text, replacemethod, replacechar)
     else:
-        replaced, names = replace_names_nltk(text)
+        replaced, names = replace_names_nltk(text, replacemethod, replacechar)
 
     # Build response
     response = {
