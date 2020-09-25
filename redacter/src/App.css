@@ -24,6 +24,10 @@
     width: 600px;
     overflow: hidden;
 }
+.wrapbox {
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
 .scroll {
     animation: scroll 30s infinite linear;
 }
@@ -38,5 +42,6 @@
 }
 
 .charinput {
-    max-width: 100px;
+    text-align: center;
+    max-width: 50px;
 }

@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "*.js": "javascriptreact"
-    }
+    },
+    "python.pythonPath": "/home/liam/redacter/backend/.venv/bin/python"
 }
