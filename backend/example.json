@@ -1,0 +1,6 @@
+{
+    "text": "Liam Power is a cool guy",
+    "method": "nltk",
+    "replacemethod": "replace",
+    "replacechar": "_"
+}
