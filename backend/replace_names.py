@@ -57,7 +57,9 @@ def replace_names_nltk(text, method="fake", replacechar="_"):
     names = []
     fakenames = []
     lines = nltk.word_tokenize(text, preserve_line=True)
+
     tagline = nltk.pos_tag(lines)
+    print(tagline)
     namedEnt = nltk.ne_chunk(tagline, binary=False)
     tree = namedEnt.pos()
     for i, tag in enumerate(tree):

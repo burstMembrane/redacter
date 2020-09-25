@@ -24,12 +24,12 @@ const replaceOpts = [
 	{
 		key: 'replace',
 		value: 'replace',
-		text: 'Replace names with underscores'
+		text: 'Replace names with _'
 	},
 	{
 		key: 'custom',
 		value: 'custom',
-		text: 'Replace names with a custom character'
+		text: 'Replace names with:'
 	}
 ];
 
@@ -193,12 +193,17 @@ export default class TextInput extends Component {
 							options={replaceOpts}
 							onChange={this.handleReplace}
 						/>
+						{this.state.customchar ? (
+							<Input
+								className="charinput"
+								maxlength="1"
+								value={this.state.replacechar}
+								onChange={this.handleChar}
+							/>
+						) : null}
 						<Form.Field basic control={Button} loading={this.state.loading} onClick={this.handleSubmit}>
 							Find & replace
 						</Form.Field>
-						{this.state.customchar ? (
-							<Input width={1} value={this.state.replacechar} onChange={this.handleChar} />
-						) : null}
 					</Form.Group>
 					<Message color="red" hidden={!this.state.err}>
 						{this.state.err}

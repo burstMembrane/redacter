@@ -8,7 +8,25 @@
 #headimg {
     margin-top: 4rem;
 }
-
+@keyframes scroll {
+    0% {
+        -moz-transform: translateX(100%);
+        transform: translateX(100%);
+    }
+    100% {
+        -moz-transform: translateX(-100%);
+        transform: translateX(-100%);
+    }
+}
+.scrollContainer {
+    background-color: rgba(255, 255, 255, 0.6);
+    margin: 0 auto;
+    width: 600px;
+    overflow: hidden;
+}
+.scroll {
+    animation: scroll 30s infinite linear;
+}
 .ui.form textarea {
     min-height: 50vh !important;
 }
@@ -17,4 +35,8 @@
     .ui.form textarea {
         min-height: 25vh !important;
     }
+}
+
+.charinput {
+    max-width: 100px;
 }
