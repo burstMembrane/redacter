@@ -25,6 +25,7 @@ def index():
 def replace_input():
 
     content = request.json
+    print(content)
     method = content["method"]
     replacemethod = content["replacemethod"]
     replacechar = content["replacechar"]

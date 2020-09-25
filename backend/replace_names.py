@@ -72,7 +72,7 @@ def replace_names_nltk(text, method="fake", replacechar="_"):
                     newtag[0] = fakenames[names.index(tag[0])]
                 else:
                     newtag[0] = fake
-            if method == "replace":
+            else:
                 newtag[0] = replace_with_char(tag[0][0], replacechar)
             newtag[1] = "0"
             newtag = tuple(newtag)
@@ -98,8 +98,7 @@ def replace_names(text, method="fake", replacechar="_"):
                 newtag = ["", ""]
 
                 word, classification = tag
-                if method == "replace":
-                    newtag[0] = replace_with_char(word, replacechar)
+
                 if method == "fake":
                     fake = getFakeFirstName()
                     fakenames.append(fake)
@@ -109,6 +108,8 @@ def replace_names(text, method="fake", replacechar="_"):
                         print(newtag[0])
                     else:
                         newtag[0] = fakenames[i]
+                else:
+                    newtag[0] = replace_with_char(word, replacechar)
                 newtag[1] = classification
                 newtag = tuple(newtag)
                 tagline[i] = newtag
