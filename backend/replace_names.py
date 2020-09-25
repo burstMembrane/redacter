@@ -57,9 +57,7 @@ def replace_names_nltk(text, method="fake", replacechar="_"):
     names = []
     fakenames = []
     lines = nltk.word_tokenize(text, preserve_line=True)
-
     tagline = nltk.pos_tag(lines)
-    print(tagline)
     namedEnt = nltk.ne_chunk(tagline, binary=False)
     tree = namedEnt.pos()
     for i, tag in enumerate(tree):
@@ -91,16 +89,14 @@ def replace_names(text, method="fake", replacechar="_"):
     newlines = []
     names = []
     fakenames = []
+    print(st.tag_sents(text))
     lines = text.splitlines()
     for line in tqdm(lines):
         tagline = st.tag(line.split())
         for i, tag in enumerate(tagline):
-
             if tag[1] == "PERSON":
                 newtag = ["", ""]
-
                 word, classification = tag
-
                 if method == "fake":
                     fake = getFakeFirstName()
                     fakenames.append(fake)
@@ -122,7 +118,7 @@ def replace_names(text, method="fake", replacechar="_"):
     fakenames.clear()
     return (formatted, names)
 
-
+# TESTING
 # teststr = "John Doe walked down the street"
-# replaced = replace_names_nltk(teststr, "replace")
+# replaced = replace_names(teststr, "replace")
 # print("{0}.\n{1}".format(teststr, replaced[0]))
